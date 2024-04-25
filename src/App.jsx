@@ -1,21 +1,27 @@
-import { collection, getDocs,addDoc  } from "firebase/firestore"; 
-import { db } from "./config/firebase";
 
+import Home from "./pages/Home";
+import {BrowserRouter,Route,Routes} from 'react-router-dom'
+import Header from "./components/Header";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
+import SalePage from "./pages/SalePage";
+import ProductPage from "./pages/ProductPage";
 function App() {
-    
-    getDocs(collection(db,'products'))
-    .then(querySnapshot =>{
-        // console.log(querySnapshot);
-        querySnapshot.forEach((doc) => {
-            // console.log(`${doc.id} => ${doc.data().name}`);
-            const datas = doc.data();
-            console.log(datas)
-        });
-    })
-    .catch(error=>console.log(error));
     return(
         <div>
-            firestore
+            {/* <ProductContext> */}
+                <BrowserRouter>
+                    <Header/>
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path='/signup' element={<SignupPage/>}/>
+                        <Route path="/login" element={<LoginPage/>}></Route>
+                        <Route path='/sale-product' element={<SalePage/>}></Route>
+                        <Route path='/product/:productId' element={<ProductPage/>}></Route>
+                    </Routes>
+                </BrowserRouter>
+            {/* </ProductContext> */}
+            
         </div>
     )
 }
